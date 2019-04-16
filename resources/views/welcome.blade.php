@@ -19,8 +19,10 @@
     @include('partials.app._navbar')
 
 <body>
-<div class="container p-5 text-center">
-    <h1>Bienvenido a la app!</h1>
+<div class="container p-5 ">
+
+    @yield('container')
+
 </div>
 
 <!-- Optional JavaScript -->

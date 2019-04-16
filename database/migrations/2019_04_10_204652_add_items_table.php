@@ -18,8 +18,10 @@ class AddItemsTable extends Migration
             $table->string('title');
             $table->longText('description')->nullable();
             $table->string('image')->nullable();
-            $table->unsignedBigInteger('inventory_id');
-            $table->foreign('inventory_id')->references('id')->on('inventarios');
+
+            $table->unsignedBigInteger('lista_id');
+            $table->foreign('lista_id')->references('id')->on('listas');
+
             $table->enum('category', ['bien', 'fisico','digital']);
             $table->timestamps();
         });

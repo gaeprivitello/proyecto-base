@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddInventarioTable extends Migration
+class AddListasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,17 @@ class AddInventarioTable extends Migration
      */
     public function up()
     {
-        Schema::create('inventarios', function (Blueprint $table) {
+        Schema::create('listas', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('title');
             $table->enum('visibility', ['public', 'private'])->default('private');
-            $table->unsignedBigInteger('user_id');
+
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
             $table->timestamps();
         });
+
     }
 
     /**
@@ -29,6 +33,6 @@ class AddInventarioTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('inventarios');
+        Schema::dropIfExists('listas');
     }
 }

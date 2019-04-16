@@ -28,7 +28,10 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectToHome = '/home';
+    protected $redirectToLogin = '/login';
+    protected $redirectToProfile = '/profile';
+
 
     /**
      * Create a new controller instance.
@@ -57,8 +60,7 @@ class LoginController extends Controller
      */
     public function handleProviderCallback()
     {
-        $userGithub = Socialite::driver('github')->user();
-
+        $userGithub = Socialite::driver('github')->stateless()->user();
 
         // Add User to DB
         $user = User::where('provider_id',$userGithub->getId())->first();
@@ -72,11 +74,14 @@ class LoginController extends Controller
             $user->name = $userGithub->getName();
             $user->nickname = $userGithub->getNickname();
             $user-> avatar_img = $userGithub->getAvatar();
+
+            $user->save();
         }
 
         // Login User
         Auth::login($user,true);
 
-        return redirect($this->redirectTo);
+        return redirect($this->redirectToHome);
     }
+
 }
