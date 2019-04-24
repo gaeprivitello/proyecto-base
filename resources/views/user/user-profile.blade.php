@@ -1,4 +1,4 @@
-@extends('welcome')
+@extends('main.php')
 
 @section('container')
     <div class="container">

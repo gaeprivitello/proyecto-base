@@ -12,20 +12,27 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('main');
 });
+
+
+Route::post('/playlist/store','PlaylistController@store');
 
 Route::get('profile', 'Auth\LoginController@userProfile');
 
-Route::get('lista/crear', function () {
+Route::get('playlist/create', function () {
     return view('create-list');
 });
+
+
 
 //Authentication Routes
 
 Auth::routes();
 
 Route::get('login/github', 'Auth\LoginController@redirectToProvider');
+
+Route::get('song/add', 'SongController@search');
 
 Route::get('login/github/callback', 'Auth\LoginController@handleProviderCallback');
 
