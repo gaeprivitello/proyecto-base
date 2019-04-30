@@ -47,7 +47,7 @@ return [
     'github' => [
         'client_id' => env('GITHUB_CLIENT_ID'),
         'client_secret' => env('GITHUB_CLIENT_SECRET'),
-        'redirect' => 'http://localhost:8000/login/github/callback'
+        'redirect' => 'http://iaw-app-2019.herokuapp.com/login/github/callback'
     ],
 
     'facebook' => [
