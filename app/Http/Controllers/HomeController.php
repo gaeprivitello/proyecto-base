@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Playlist;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $playlists = Playlist::all();
+
+        $playlists = $playlists->where('visibility',"Publica");
+
+        if(count($playlists)>6)
+            $playlists = $playlists->random(6);
+
+        return view('index')->with('playlists',$playlists);
     }
+
+
+
 }

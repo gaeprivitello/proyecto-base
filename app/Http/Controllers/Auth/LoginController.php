@@ -28,7 +28,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectToHome = '/home';
+    protected $redirectToHome = '/';
     protected $redirectToLogin = '/login';
     protected $redirectToProfile = '/profile';
 
@@ -62,8 +62,7 @@ class LoginController extends Controller
     {
         $userGithub = Socialite::driver('github')->stateless()->user();
 
-        // Add User to DB
-        $user = User::where('provider_id',$userGithub->getId())->first();
+        $user = User::where('email',$userGithub->getEmail())->first();
 
         if(!$user){ // Si el usuario no existe
 
@@ -72,7 +71,7 @@ class LoginController extends Controller
             $user->provider_id = $userGithub->getId();
             $user->email = $userGithub->getEmail();
             $user->name = $userGithub->getName();
-            $user->nickname = $userGithub->getNickname();
+            $user->username = $userGithub->getNickname();
             $user-> avatar_img = $userGithub->getAvatar();
 
             $user->save();
@@ -83,5 +82,57 @@ class LoginController extends Controller
 
         return redirect($this->redirectToHome);
     }
+
+    /**
+     * Redirect the user to the Facebook authentication page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function redirectToFacebook()
+    {
+        return Socialite::driver('facebook')->redirect();
+    }
+
+
+    /**
+     * Obtain the user information from Facebook.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function handleFacebookCallback()
+    {
+        try {
+
+            $userFacebook = Socialite::driver('facebook')->stateless()->user();
+
+            $user = User::where('email',$userFacebook->getEmail())->first();
+
+            list($username,$dominio) = explode("@", $userFacebook->getEmail());
+
+            if(!$user){ // Si el usuario no existe
+
+                $user = new User();
+
+                $user->provider_id = $userFacebook->getId();
+                $user->email = $userFacebook->getEmail();
+                $user->username = $username;
+                $user->name = $userFacebook->getName();
+                $user-> avatar_img = $userFacebook->getAvatar();
+
+                $user->save();
+            }
+
+            // Login User
+            Auth::login($user,true);
+
+            return redirect($this->redirectToHome);
+
+        } catch (Exception $e) {
+
+            return redirect('login/facebook');
+
+        }
+    }
+
 
 }
