@@ -3,7 +3,7 @@
 @section('container')
 
     <div>
-        <h1>Crear Nueva Lista</h1>
+        <h1>Crear nueva Playlist</h1>
         <hr class="half-rule"/>
     </div>
 
@@ -21,14 +21,14 @@
                 </select>
             </div>
             <div class="col-md-8 form-group">
-                <label for="inputDescripcion">Descripcion</label>
-                <textarea class="form-control" id="inputDescripcion" rows="3"></textarea>
+                <label for="inputSpotifyURL">Playlist Spotify URL </label>
+                <input type="text" class="form-control" id="inputSpotifyURL" placeholder="URL" required >
             </div>
 
             <div class="col-md-8 from-group">
                 <label for="inputFile">Seleccione archivo de Imagen</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" >
+                    <input type="text" class="form-control" placeholder="Caratula de playlist" >
                     <label class="input-group-btn">
                     <span class="btn btn-primary">
                         Seleccionar <input id="inputFile" type="file" style="display: none;" multiple>

@@ -63,6 +63,9 @@
                                     <a href="login/github" class="btn btn-primary">
                                         <i class="fab fa-github"></i> {{ __('Login With GitHub') }}
                                     </a>
+                                    <a href="login/facebook" class="btn btn-primary">
+                                        <i class="fab fa-facebook"></i> {{ __('Login With Facebook') }}
+                                    </a>
                                 </div>
 
                                 @if (Route::has('password.request'))

@@ -16,4 +16,8 @@
 </body>
 
 
+@include('partials._scripts')
+
+
 </html>
+
